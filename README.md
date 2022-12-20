@@ -1,0 +1,1 @@
+# PHP Setup for Laravel
