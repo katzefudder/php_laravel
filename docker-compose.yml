@@ -12,6 +12,7 @@ services:
         networks:
             - laravel
         volumes:
+            - ./php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
             - ./laravel:/var/www
 
     redis:
