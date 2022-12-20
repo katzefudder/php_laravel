@@ -1,0 +1,39 @@
+version: '2.2'
+services:
+    php:
+        build:
+            args:
+                user: www-data
+                uid: 1000
+            context: ./php
+        container_name: php
+        ports:
+            - "80:80"
+        networks:
+            - laravel
+        volumes:
+            - ./laravel:/var/www
+
+    mysql:
+        image: mariadb:10.9.4-jammy
+        container_name: mysql
+        environment:
+            - "MYSQL_DATABASE=laravel"
+            - "MYSQL_ALLOW_EMPTY_PASSWORD=yes"
+        networks:
+            - laravel
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "8080:80"
+        networks:
+            - laravel
+        environment:
+            - "PMA_HOST=mysql"
+            - "PMA_USER=root"
+            - "PMA_PASSWORD="
+
+networks:
+  laravel:
+    driver: bridge
